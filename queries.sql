@@ -1,11 +1,45 @@
 /*Queries that provide answers to the questions from all projects.*/
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (6,'Plantmon','2021-11-15',2,true,-5.7);
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (7,'Squirtle','1993-03-02',3,false,-12.13);
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (8,'Angemon','2005-06-12',1,true,-45);
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (9,'Boarmon','2005-06-07',7,true,20.4);
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (10,'Blossom','1998-10-13',3,true,17);
+insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (11,'Ditto','2022-05-14',4,true,22);
 
-SELECT * from animals WHERE name like '%mon';
-select name from animals where date_of_birth between '2016-01-01' and '2019-12-31';
-select name from animals where neutered = true and escape_attempts < 3;
-select date_of_birth from animals where name in ('Agumon','Pikachu');
-select name,escape_attempts from animals where weigth_kg > 10.5;
-select * from animals where neutered = true;
-select * from animals where name not  in ('Gabumon');
-select * from animals where weigth_kg between 10.4 and 17.3;
+begin;
+ALTER TABLE animals RENAME COLUMN species TO unspecified;
+rollback;
+
+begin;
+update animals set species = 'digimon' where name like '%mon';
+update animals set species = 'pokemon' where name not like '%mon';
+commit;
+
+begin;
+truncate table animals;
+rollback;
+
+
+
+begin;
+savepoint beforeDeleteAnimals;
+delete from animals where date_of_birth > '2022-01-01';
+savepoint updateAllAnimals;
+update animals set weigth_kg =  (weigth_kg * -1);
+rollback to updateAllAnimals;
+update animals set weigth_kg =  (weigth_kg * -1) where weigth_kg < 0 ;
+commit;
+
+
+
+
+
+
+select count(id) from animals;
+select count(id) from animals where escape_attempts = 0;
+select avg(weigth_kg) from animals ;
+select name,escape_attempts from animals where escape_attempts = (select max(escape_attempts) from animals);
+ select species,min(weigth_kg),max(weigth_kg) from animals group by species;
+ select species,avg(escape_attempts) from animals where date_of_birth between '1990-01-01' and  '2000-12-31' group by species;
+   
 
