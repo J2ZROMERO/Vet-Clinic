@@ -31,3 +31,15 @@ update animals set weigth_kg =  (weigth_kg * -1) where weigth_kg < 0 ;
 commit;
 
 
+
+
+
+
+select count(id) from animals;
+select count(id) from animals where escape_attempts > 0;
+select avg(weigth_kg) from animals ;
+select name from animals where weigth_kg = ( select max(weigth_kg) from animals);
+select name, weigth_kg from animals;
+select name,avg(escape_attempts) from animals where date_of_birth between '1990-01-01' and  '2000-12-31' group by name;
+   
+
