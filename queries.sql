@@ -1,45 +1,21 @@
-/*Queries that provide answers to the questions from all projects.*/
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (6,'Plantmon','2021-11-15',2,true,-5.7);
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (7,'Squirtle','1993-03-02',3,false,-12.13);
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (8,'Angemon','2005-06-12',1,true,-45);
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (9,'Boarmon','2005-06-07',7,true,20.4);
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (10,'Blossom','1998-10-13',3,true,17);
-insert into animals(id,name,date_of_birth,escape_attempts,neutered,weigth_kg) values (11,'Ditto','2022-05-14',4,true,22);
+select owners.full_name, animals.name from animals inner join owners on animals.owner_id = owners.id where owners.id = 4;
 
-begin;
-ALTER TABLE animals RENAME COLUMN species TO unspecified;
-rollback;
+select animals.name from animals inner join species on animals.species_id = species.id where species.id = 1;
 
-begin;
-update animals set species = 'digimon' where name like '%mon';
-update animals set species = 'pokemon' where name not like '%mon';
-commit;
+select owners.full_name, animals.name from animals right join owners on animals.owner_id = owners.id;
 
-begin;
-truncate table animals;
-rollback;
+select species.name, count(species.id) from animals inner join species on animals.species_id = species.id group by species.id;
+
+select owners.full_name,animals.name from animals inner join owners on animals.owner_id = owners.id where owners.id = 2 and animals.species_id = 2;
+
+select owners.full_name,animals.name from animals inner join owners on animals.owner_id = owners.id where owners.id = 5 and animals.escape_attempts = 0;
+
+select owners.full_name,count(owner_id) from animals inner join owners on animals.owner_id = owners.id 
+group by owner_id,owners.full_name 
+having count(animals.owner_id) = (select max(dt.total) 
+                                  from (select  count(owner_id) as total 
+                                        from animals group by owner_id) as dt);
 
 
 
-begin;
-savepoint beforeDeleteAnimals;
-delete from animals where date_of_birth > '2022-01-01';
-savepoint updateAllAnimals;
-update animals set weigth_kg =  (weigth_kg * -1);
-rollback to updateAllAnimals;
-update animals set weigth_kg =  (weigth_kg * -1) where weigth_kg < 0 ;
-commit;
-
-
-
-
-
-
-select count(id) from animals;
-select count(id) from animals where escape_attempts = 0;
-select avg(weigth_kg) from animals ;
-select name,escape_attempts from animals where escape_attempts = (select max(escape_attempts) from animals);
- select species,min(weigth_kg),max(weigth_kg) from animals group by species;
- select species,avg(escape_attempts) from animals where date_of_birth between '1990-01-01' and  '2000-12-31' group by species;
-   
 
