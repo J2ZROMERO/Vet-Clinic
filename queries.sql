@@ -35,4 +35,4 @@ select  vets.name,count(animals_id) as cuantity_of_visits from visits inner join
 
 /* What specialty should Maisy Smith consider getting? Look for the species she gets the most. */
 
-select dt.namevet,countSpecie as nameSpecie,count(dt.countSpecie) as Most_species_trated  from (select  vets.name as namevet,animals.name,visits.animals_id,species.name as countSpecie from visits inner join animals on visits.animals_id = animals.id  left join species on animals.species_id = species.id inner join vets on visits.vets_id = vets.id  where vets_id = 2) as dt group by dt.countSpecie,dt.namevet limit 1;
+select dt.namevet,countSpecie as speciality_suggested,count(dt.countSpecie) as Most_species_trated  from (select  vets.name as namevet,animals.name,visits.animals_id,species.name as countSpecie from visits inner join animals on visits.animals_id = animals.id  left join species on animals.species_id = species.id inner join vets on visits.vets_id = vets.id  where vets_id = 2) as dt group by dt.countSpecie,dt.namevet limit 1;
