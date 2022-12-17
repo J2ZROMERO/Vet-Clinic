@@ -21,7 +21,7 @@ ALTER TABLE public.specializations ADD CONSTRAINT specializations_fk_1 FOREIGN K
  animals_id int,
  vets_id int,
  date_of_visits date,
- primary key (animals_id,vets_id,date_of_visits date));
+ primary key (animals_id,vets_id,date_of_visits));
 
 
 ALTER TABLE public.visits ADD CONSTRAINT visits_fk FOREIGN KEY (animals_id) REFERENCES public.animals(id);
