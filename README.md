@@ -6,6 +6,7 @@
 - Check [queries.sql](./queries.sql) for examples of queries that can be run on a newly created database. **Important note: this file might include queries that make changes in the database (e.g., remove records). Use them responsibly!**
 <a name="readme-top"></a>
 
+![diagram](https://user-images.githubusercontent.com/63516282/208717976-c0014d7a-d7c8-40ab-a9ff-4e5da30dca09.png)
 
 <!-- TABLE OF CONTENTS -->
 
