@@ -9,10 +9,6 @@ This repository incluides adata about animals in a vet clinic.
 - Use [data.sql](./data.sql) to populate tables with sample data.
 - Check [queries.sql](./queries.sql) for examples of queries that can be run on a newly created database. **Important note: this file might include queries that make changes in the database (e.g., remove records). Use them responsibly!**
 
-
-## Diagram
-[Diagram](https://drawsql.app/teams/microverseactivities/diagrams/vet-clinic) 
-
 <!-- AUTHORS -->
 
 👤 **JOSE ZEPEDA**
