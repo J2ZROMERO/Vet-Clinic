@@ -55,3 +55,11 @@ ALTER TABLE
     "invoices" ADD CONSTRAINT "invoices_medical_history_id_foreign" FOREIGN KEY("medical_history_id") REFERENCES "medical_histories"("id");
 ALTER TABLE
     "medical_treatments" ADD CONSTRAINT "medical_treatments_fk_medical_histories_foreign" FOREIGN KEY("fk_medical_histories") REFERENCES "medical_histories"("id");
+
+CREATE INDEX patient_index ON medical_histories(patient_id);
+CREATE INDEX invoice_index ON invoice_items(invoice_id);
+CREATE INDEX invoice_index ON invoice_items(treatment_id);
+CREATE INDEX treatments_index ON medical_treatments(fk_treatments);
+CREATE INDEX invoices_index ON invoices(medical_history_id);
+CREATE INDEX medical_index ON medical_treatments(fk_medical_histories);
+
